@@ -35,7 +35,7 @@ func SubDay() {
 	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
 	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
 	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
-	defer nextNewYear()
+	nextNewYear()
 	defer func() {
 		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
 		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
