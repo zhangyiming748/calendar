@@ -35,11 +35,11 @@ func SubDay() {
 	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
 	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
 	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
-	nextNewYear()
 	defer func() {
 		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
 		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
 	}()
+	defer nextNewYear()
 	subValentinesDay()
 	subWomensDay()
 	subArborDay()
@@ -204,11 +204,14 @@ func nextNewYear() {
 	nextYearInt := thisYearInt + 1
 	nextYearStr := strconv.Itoa(nextYearInt)
 	day := strings.Join([]string{nextYearStr, NewYear}, "-") //2021-01-01
-
 	ret, _ := time.Parse("2006-01-02", day)
 	unsub := ret.Sub(time.Now())
 	if unsub < 0 {
 		return
 	}
 	fmt.Printf("距离明年还有%v天\n", int(unsub.Hours())/24)
+	if int(unsub.Hours())/24 <= 31 {
+		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
+
+	}
 }
