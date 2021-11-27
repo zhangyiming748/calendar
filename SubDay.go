@@ -8,20 +8,21 @@ import (
 )
 
 const (
-	NewYear             = "01-01" //新年
-	ValentinesDay       = "02-14" //情人节
-	WomensDay           = "03-08" //妇女节
-	ArborDay            = "03-12" //植树节
-	AprilFoolsDay       = "04-01" //愚人节
-	LaborDay            = "05-01" //劳动节
-	YouthDay            = "05-04" //青年节
-	ChildrensDay        = "06-01" //儿童节
-	NationalDay         = "10-01" //国庆节
-	Halloween           = "10-31" //万圣夜
-	ThanksgivingDay     = "11-25" //感恩节
-	NationalMemorialDay = "12-13" //国家公祭日
-	ChristmasEve        = "12-24" //平安夜
-	Christmas           = "12-25" //圣诞节
+	NewYear                  = "01-01" //新年
+	ValentinesDay            = "02-14" //情人节
+	WomensDay                = "03-08" //妇女节
+	ArborDay                 = "03-12" //植树节
+	AprilFoolsDay            = "04-01" //愚人节
+	LaborDay                 = "05-01" //劳动节
+	YouthDay                 = "05-04" //青年节
+	ChildrensDay             = "06-01" //儿童节
+	NationalDay              = "10-01" //国庆节
+	NationalPovertyReliefDay = "10-17" //国家扶贫日
+	Halloween                = "10-31" //万圣夜
+	ThanksgivingDay          = "11-25" //感恩节
+	NationalMemorialDay      = "12-13" //国家公祭日
+	ChristmasEve             = "12-24" //平安夜
+	Christmas                = "12-25" //圣诞节
 )
 
 //获取当前年份
@@ -142,6 +143,17 @@ func subNationalDay() {
 	}
 	fmt.Printf("距离国庆节还有%v天\n", int(unsub.Hours())/24)
 }
+//国家扶贫日
+func subNationalPovertyReliefDay() {
+	day := strings.Join([]string{thisYear(), NationalPovertyReliefDay}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return
+	}
+	fmt.Printf("距离国庆节还有%v天\n", int(unsub.Hours())/24)
+}
+
 
 //感恩节
 func subThanksgivingDay() {
