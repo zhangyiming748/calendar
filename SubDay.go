@@ -19,6 +19,7 @@ const (
 	NationalDay              = "10-01" //国庆节
 	NationalPovertyReliefDay = "10-17" //国家扶贫日
 	Halloween                = "10-31" //万圣夜
+
 	ThanksgivingDay          = "11-25" //感恩节
 	NationalMemorialDay      = "12-13" //国家公祭日
 	ChristmasEve             = "12-24" //平安夜
@@ -35,6 +36,8 @@ func SubDay() {
 	fmt.Println("【摸鱼办】提醒您")
 	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
 	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
+	fmt.Println("吃饭时间就吃饭")
+	fmt.Println("午休时间就午休")
 	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
 	defer func() {
 		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
