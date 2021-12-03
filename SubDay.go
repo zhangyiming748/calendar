@@ -32,7 +32,7 @@ func thisYear() string {
 	return ret
 }
 func SubDay() {
-	fmt.Println(time.Now().Format("早上好，摸鱼人!今天是2006年01月02日"))
+	fmt.Println(time.Now().Format("早上好，摸鱼人!今天是2006年1月2日"))
 	fmt.Println("【摸鱼办】提醒您")
 	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
 	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
