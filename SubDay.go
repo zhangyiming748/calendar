@@ -19,8 +19,9 @@ const (
 	NationalDay              = "10-01" //国庆节
 	NationalPovertyReliefDay = "10-17" //国家扶贫日
 	Halloween                = "10-31" //万圣夜
-
+	Double11                 = "11-11"
 	ThanksgivingDay          = "11-25" //感恩节
+	Double12                 = "12-12"
 	NationalMemorialDay      = "12-13" //国家公祭日
 	ChristmasEve             = "12-24" //平安夜
 	Christmas                = "12-25" //圣诞节
@@ -32,7 +33,8 @@ func thisYear() string {
 	return ret
 }
 func SubDay() {
-	fmt.Println(time.Now().Format("早上好，摸鱼人!今天是2006年1月2日"))
+	fmt.Println("早上好,摸鱼人!")
+	fmt.Println(time.Now().Format("今天是2006年1月2日"))
 	fmt.Println("【摸鱼办】提醒您")
 	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
 	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
@@ -146,6 +148,7 @@ func subNationalDay() {
 	}
 	fmt.Printf("距离国庆节还有%v天\n", int(unsub.Hours())/24)
 }
+
 //国家扶贫日
 func subNationalPovertyReliefDay() {
 	day := strings.Join([]string{thisYear(), NationalPovertyReliefDay}, "-")
@@ -154,9 +157,8 @@ func subNationalPovertyReliefDay() {
 	if unsub < 0 {
 		return
 	}
-	fmt.Printf("距离国庆节还有%v天\n", int(unsub.Hours())/24)
+	fmt.Printf("距离国家扶贫日还有%v天\n", int(unsub.Hours())/24)
 }
-
 
 //感恩节
 func subThanksgivingDay() {
@@ -169,17 +171,6 @@ func subThanksgivingDay() {
 	fmt.Printf("距离感恩节还有%v天\n", int(unsub.Hours())/24)
 }
 
-//国家公祭日
-func subNationalMemorialDay() {
-	day := strings.Join([]string{thisYear(), NationalMemorialDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离国家公祭日还有%v天\n", int(unsub.Hours())/24)
-}
-
 //万圣夜
 func subHalloween() {
 	day := strings.Join([]string{thisYear(), Halloween}, "-")
@@ -189,6 +180,36 @@ func subHalloween() {
 		return
 	}
 	fmt.Printf("距离万圣夜还有%v天\n", int(unsub.Hours())/24)
+}
+func subDouble11() {
+	day := strings.Join([]string{thisYear(), Double11}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return
+	}
+	fmt.Printf("距离双十一还有%v天\n", int(unsub.Hours())/24)
+}
+
+func subDouble12() {
+	day := strings.Join([]string{thisYear(), Double12}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return
+	}
+	fmt.Printf("距离双十二还有%v天\n", int(unsub.Hours())/24)
+}
+
+//国家公祭日
+func subNationalMemorialDay() {
+	day := strings.Join([]string{thisYear(), NationalMemorialDay}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return
+	}
+	fmt.Printf("距离国家公祭日还有%v天\n", int(unsub.Hours())/24)
 }
 
 //平安夜
