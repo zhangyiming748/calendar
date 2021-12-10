@@ -324,6 +324,9 @@ func chineseNewYear() {
 		return
 	}
 	fmt.Printf("距离明年春节还有%v天\n", int(unsub.Hours())/24)
+	if int(unsub.Hours())/24 < 7 {
+		fmt.Println("新的一年就要到了,谢谢大家长久以来对我的忽视,我很喜欢这种状态,大家都各忙各的,没人鸟我,我也不想鸟你们,新的一年希望大家继续加油,我会一直和你们耗下去")
+	}
 }
 
 //元宵节
