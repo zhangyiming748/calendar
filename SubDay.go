@@ -9,24 +9,99 @@ import (
 )
 
 const (
-	NewYear                  = "01-01" //新年
-	ValentinesDay            = "02-14" //情人节
-	WomensDay                = "03-08" //妇女节
-	ArborDay                 = "03-12" //植树节
-	AprilFoolsDay            = "04-01" //愚人节
-	LaborDay                 = "05-01" //劳动节
-	YouthDay                 = "05-04" //青年节
-	ChildrensDay             = "06-01" //儿童节
-	NationalDay              = "10-01" //国庆节
-	NationalPovertyReliefDay = "10-17" //国家扶贫日
-	Halloween                = "10-31" //万圣夜
-	Double11                 = "11-11"
-	NationalConstitutionDay  = "12-04" //国家宪法日
-	ThanksgivingDay          = "11-25" //感恩节
-	Double12                 = "12-12"
-	NationalMemorialDay      = "12-13" //国家公祭日
-	ChristmasEve             = "12-24" //平安夜
-	Christmas                = "12-25" //圣诞节
+	Year = 365 //一年多少天
+)
+
+type Festival struct {
+	chineseName string //节日中文名
+	subDay      int    //节日剩余日期
+	date        string //节日日期
+}
+
+func (f *Festival) SetChineseName(s string) {
+	f.chineseName = s
+	return
+}
+func (f Festival) GetChineseName() string {
+	return f.chineseName
+}
+func (f *Festival) SetSubDay(i int) {
+	f.subDay = i
+	return
+}
+func (f Festival) GetSubDay() int {
+	return f.subDay
+}
+func (f *Festival) SetDate(s string) {
+	f.date = s
+	return
+}
+func (f Festival) GetDate() string {
+	return f.date
+}
+
+var (
+	Countdown                []Festival
+	NewYear                  Festival // 元旦
+	ValentinesDay            Festival //情人节
+	WomensDay                Festival //妇女节
+	ArborDay                 Festival //植树节
+	AprilFoolsDay            Festival //愚人节
+	LaborDay                 Festival //劳动节
+	YouthDay                 Festival //青年节
+	ChildrensDay             Festival //儿童节
+	NationalDay              Festival //国庆节
+	NationalPovertyReliefDay Festival //国家扶贫日
+	Halloween                Festival //万圣夜
+	Double11                 Festival //
+	NationalConstitutionDay  Festival ////国家宪法日
+	ThanksgivingDay          Festival //感恩节
+	Double12                 Festival //
+	NationalMemorialDay      Festival //国家公祭日
+	ChristmasEve             Festival //平安夜
+	Christmas                Festival //圣诞节
+
+)
+
+func init() {
+	NewYear.SetChineseName("元旦")
+	NewYear.SetDate("01-01")
+	NewYear.SetSubDay(allInOne(NewYear.GetDate()))
+	fmt.Println(NewYear)
+	ValentinesDay.SetChineseName("情人节")
+	ValentinesDay.SetDate("02-14")
+	ValentinesDay.SetSubDay(allInOne(ValentinesDay.GetDate()))
+	fmt.Println(ValentinesDay)
+}
+func allInOne(date string) int {
+	day := strings.Join([]string{thisYear(), date}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return int(unsub.Hours())/24 + 365
+	}
+	return int(unsub.Hours()) / 24
+}
+
+const (
+//NewYear                  = "01-01"  新年
+//	ValentinesDay            = "02-14" //情人节
+//	WomensDay                = "03-08" //妇女节
+//	ArborDay                 = "03-12" //植树节
+//	AprilFoolsDay            = "04-01" //愚人节
+//	LaborDay                 = "05-01" //劳动节
+//	YouthDay                 = "05-04" //青年节
+//	ChildrensDay             = "06-01" //儿童节
+//	NationalDay              = "10-01" //国庆节
+//	NationalPovertyReliefDay = "10-17" //国家扶贫日
+//	Halloween                = "10-31" //万圣夜
+//	Double11                 = "11-11"
+//	NationalConstitutionDay  = "12-04" //国家宪法日
+//	ThanksgivingDay          = "11-25" //感恩节
+//	Double12                 = "12-12"
+//	NationalMemorialDay      = "12-13" //国家公祭日
+//	ChristmasEve             = "12-24" //平安夜
+//	Christmas                = "12-25" //圣诞节
 )
 const (
 	ChineseNewYear      = "01-01" //春节
@@ -69,27 +144,27 @@ func SubDay() {
 	}()
 	defer nextNewYear()
 	lunar()
-	solar()
+	//solar()
 
 }
-func solar() {
-	subValentinesDay()
-	subWomensDay()
-	subArborDay()
-	subAprilFoolsDay()
-	subLaborDay()
-	subYouthDay()
-	subChildrensDay()
-	subNationalDay()
-	subHalloween()
-	subDouble11()
-	subNationalConstitutionDay()
-	subThanksgivingDay()
-	subDouble12()
-	subNationalMemorialDay()
-	subChristmasEve()
-	subChristmas()
-}
+//func solar() {
+//	subValentinesDay()
+//	subWomensDay()
+//	subArborDay()
+//	subAprilFoolsDay()
+//	subLaborDay()
+//	subYouthDay()
+//	subChildrensDay()
+//	subNationalDay()
+//	subHalloween()
+//	subDouble11()
+//	subNationalConstitutionDay()
+//	subThanksgivingDay()
+//	subDouble12()
+//	subNationalMemorialDay()
+//	subChristmasEve()
+//	subChristmas()
+//}
 func lunar() {
 	chineseNewYear()
 	chineseLanternFestival()
@@ -102,197 +177,197 @@ func lunar() {
 	chineseDoubleNinthFestival()
 	chineseLabaFestival()
 }
-
-//情人节
-func subValentinesDay() {
-	day := strings.Join([]string{thisYear(), ValentinesDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离情人节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//妇女节
-func subWomensDay() {
-	day := strings.Join([]string{thisYear(), WomensDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离妇女节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//植树节
-func subArborDay() {
-	day := strings.Join([]string{thisYear(), ArborDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离植树节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//愚人节
-func subAprilFoolsDay() {
-	day := strings.Join([]string{thisYear(), AprilFoolsDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离愚人节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//劳动节
-func subLaborDay() {
-	day := strings.Join([]string{thisYear(), LaborDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离劳动节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//青年节
-func subYouthDay() {
-	day := strings.Join([]string{thisYear(), YouthDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离青年节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//儿童节
-func subChildrensDay() {
-	day := strings.Join([]string{thisYear(), ChildrensDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离儿童节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//国庆节
-func subNationalDay() {
-	day := strings.Join([]string{thisYear(), NationalDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离国庆节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//国家扶贫日
-func subNationalPovertyReliefDay() {
-	day := strings.Join([]string{thisYear(), NationalPovertyReliefDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离国家扶贫日还有%v天\n", int(unsub.Hours())/24)
-}
-
-//感恩节
-func subThanksgivingDay() {
-	day := strings.Join([]string{thisYear(), ThanksgivingDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离感恩节还有%v天\n", int(unsub.Hours())/24)
-}
-
-//万圣夜
-func subHalloween() {
-	day := strings.Join([]string{thisYear(), Halloween}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离万圣夜还有%v天\n", int(unsub.Hours())/24)
-}
-func subDouble11() {
-	day := strings.Join([]string{thisYear(), Double11}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离双十一还有%v天\n", int(unsub.Hours())/24)
-}
-
-//国家宪法日
-func subNationalConstitutionDay() {
-	day := strings.Join([]string{thisYear(), NationalConstitutionDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离国家宪法日还有%v天\n", int(unsub.Hours())/24)
-}
-
-func subDouble12() {
-	day := strings.Join([]string{thisYear(), Double12}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离双十二还有%v天\n", int(unsub.Hours())/24)
-}
-
-//国家公祭日
-func subNationalMemorialDay() {
-	day := strings.Join([]string{thisYear(), NationalMemorialDay}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离国家公祭日还有%v天\n", int(unsub.Hours())/24)
-}
-
-//平安夜
-func subChristmasEve() {
-	day := strings.Join([]string{thisYear(), ChristmasEve}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离平安夜还有%v天\n", int(unsub.Hours())/24)
-}
-
-//圣诞节
-func subChristmas() {
-	day := strings.Join([]string{thisYear(), Christmas}, "-")
-	ret, _ := time.Parse("2006-01-02", day)
-	unsub := ret.Sub(time.Now())
-	if unsub < 0 {
-		return
-	}
-	fmt.Printf("距离圣诞节还有%v天\n", int(unsub.Hours())/24)
-}
+//
+////情人节
+//func subValentinesDay() {
+//	day := strings.Join([]string{thisYear(), ValentinesDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离情人节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////妇女节
+//func subWomensDay() {
+//	day := strings.Join([]string{thisYear(), WomensDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离妇女节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////植树节
+//func subArborDay() {
+//	day := strings.Join([]string{thisYear(), ArborDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离植树节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////愚人节
+//func subAprilFoolsDay() {
+//	day := strings.Join([]string{thisYear(), AprilFoolsDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离愚人节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////劳动节
+//func subLaborDay() {
+//	day := strings.Join([]string{thisYear(), LaborDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离劳动节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////青年节
+//func subYouthDay() {
+//	day := strings.Join([]string{thisYear(), YouthDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离青年节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////儿童节
+//func subChildrensDay() {
+//	day := strings.Join([]string{thisYear(), ChildrensDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离儿童节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////国庆节
+//func subNationalDay() {
+//	day := strings.Join([]string{thisYear(), NationalDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离国庆节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////国家扶贫日
+//func subNationalPovertyReliefDay() {
+//	day := strings.Join([]string{thisYear(), NationalPovertyReliefDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离国家扶贫日还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////感恩节
+//func subThanksgivingDay() {
+//	day := strings.Join([]string{thisYear(), ThanksgivingDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离感恩节还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////万圣夜
+//func subHalloween() {
+//	day := strings.Join([]string{thisYear(), Halloween}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离万圣夜还有%v天\n", int(unsub.Hours())/24)
+//}
+//func subDouble11() {
+//	day := strings.Join([]string{thisYear(), Double11}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离双十一还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////国家宪法日
+//func subNationalConstitutionDay() {
+//	day := strings.Join([]string{thisYear(), NationalConstitutionDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离国家宪法日还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+//func subDouble12() {
+//	day := strings.Join([]string{thisYear(), Double12}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离双十二还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////国家公祭日
+//func subNationalMemorialDay() {
+//	day := strings.Join([]string{thisYear(), NationalMemorialDay}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离国家公祭日还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////平安夜
+//func subChristmasEve() {
+//	day := strings.Join([]string{thisYear(), ChristmasEve}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离平安夜还有%v天\n", int(unsub.Hours())/24)
+//}
+//
+////圣诞节
+//func subChristmas() {
+//	day := strings.Join([]string{thisYear(), Christmas}, "-")
+//	ret, _ := time.Parse("2006-01-02", day)
+//	unsub := ret.Sub(time.Now())
+//	if unsub < 0 {
+//		return
+//	}
+//	fmt.Printf("距离圣诞节还有%v天\n", int(unsub.Hours())/24)
+//}
 
 //计算和元旦的差值
 func nextNewYear() {
 	thisYearInt, _ := strconv.Atoi(thisYear())
 	nextYearInt := thisYearInt + 1
 	nextYearStr := strconv.Itoa(nextYearInt)
-	day := strings.Join([]string{nextYearStr, NewYear}, "-") //2021-01-01
+	day := strings.Join([]string{nextYearStr, "01-01"}, "-") //2021-01-01
 	ret, _ := time.Parse("2006-01-02", day)
 	unsub := ret.Sub(time.Now())
 	if unsub < 0 {
