@@ -21,6 +21,7 @@ const (
 	NationalPovertyReliefDay = "10-17" //国家扶贫日
 	Halloween                = "10-31" //万圣夜
 	Double11                 = "11-11"
+	NationalConstitutionDay  = "12-04" //国家宪法日
 	ThanksgivingDay          = "11-25" //感恩节
 	Double12                 = "12-12"
 	NationalMemorialDay      = "12-13" //国家公祭日
@@ -82,6 +83,7 @@ func solar() {
 	subNationalDay()
 	subHalloween()
 	subDouble11()
+	subNationalConstitutionDay()
 	subThanksgivingDay()
 	subDouble12()
 	subNationalMemorialDay()
@@ -229,6 +231,17 @@ func subDouble11() {
 		return
 	}
 	fmt.Printf("距离双十一还有%v天\n", int(unsub.Hours())/24)
+}
+
+//国家宪法日
+func subNationalConstitutionDay() {
+	day := strings.Join([]string{thisYear(), NationalConstitutionDay}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return
+	}
+	fmt.Printf("距离国家宪法日还有%v天\n", int(unsub.Hours())/24)
 }
 
 func subDouble12() {
