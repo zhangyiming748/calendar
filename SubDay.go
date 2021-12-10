@@ -64,14 +64,103 @@ var (
 )
 
 func init() {
+	defer func() {
+		for i, v := range Countdown {
+			fmt.Println(i, v)
+		}
+	}()
 	NewYear.SetChineseName("元旦")
 	NewYear.SetDate("01-01")
 	NewYear.SetSubDay(allInOne(NewYear.GetDate()))
-	fmt.Println(NewYear)
+	//fmt.Println(NewYear)
+	Countdown = append(Countdown, NewYear)
+
 	ValentinesDay.SetChineseName("情人节")
 	ValentinesDay.SetDate("02-14")
 	ValentinesDay.SetSubDay(allInOne(ValentinesDay.GetDate()))
-	fmt.Println(ValentinesDay)
+	//fmt.Println(ValentinesDay)
+	Countdown = append(Countdown, ValentinesDay)
+
+	WomensDay.SetChineseName("妇女节")
+	WomensDay.SetDate("03-08")
+	WomensDay.SetSubDay(allInOne(WomensDay.GetDate()))
+	Countdown = append(Countdown, WomensDay)
+
+	ArborDay.SetChineseName("植树节")
+	ArborDay.SetDate("03-12")
+	ArborDay.SetSubDay(allInOne(ArborDay.GetDate()))
+	Countdown = append(Countdown, ArborDay)
+
+	AprilFoolsDay.SetChineseName("愚人节")
+	AprilFoolsDay.SetDate("04-01")
+	AprilFoolsDay.SetSubDay(allInOne(AprilFoolsDay.GetDate()))
+	Countdown = append(Countdown, AprilFoolsDay)
+
+	LaborDay.SetChineseName("劳动节")
+	LaborDay.SetDate("05-01")
+	LaborDay.SetSubDay(allInOne(LaborDay.GetDate()))
+	Countdown = append(Countdown, LaborDay)
+
+	YouthDay.SetChineseName("青年节")
+	YouthDay.SetDate("05-04")
+	YouthDay.SetSubDay(allInOne(YouthDay.GetDate()))
+	Countdown = append(Countdown, YouthDay)
+
+	ChildrensDay.SetChineseName("儿童节")
+	ChildrensDay.SetDate("06-01")
+	ChildrensDay.SetSubDay(allInOne(ChildrensDay.GetDate()))
+	Countdown = append(Countdown, ChildrensDay)
+
+	NationalDay.SetChineseName("国庆节")
+	NationalDay.SetDate("10-01")
+	NationalDay.SetSubDay(allInOne(NationalDay.GetDate()))
+	Countdown = append(Countdown, NationalDay)
+
+	NationalPovertyReliefDay.SetChineseName("国家扶贫日")
+	NationalPovertyReliefDay.SetDate("10-17")
+	NationalPovertyReliefDay.SetSubDay(allInOne(NationalPovertyReliefDay.GetDate()))
+	Countdown = append(Countdown, NationalPovertyReliefDay)
+
+	Halloween.SetChineseName("万圣夜")
+	Halloween.SetDate("10-31")
+	Halloween.SetSubDay(allInOne(Halloween.GetDate()))
+	Countdown = append(Countdown, Halloween)
+
+	Double11.SetChineseName("双十一")
+	Double11.SetDate("11-11")
+	Double11.SetSubDay(allInOne(Double11.GetDate()))
+	Countdown = append(Countdown, Double11)
+
+	NationalConstitutionDay.SetChineseName("国家宪法日")
+	NationalConstitutionDay.SetDate("12-04")
+	NationalConstitutionDay.SetSubDay(allInOne(NationalConstitutionDay.GetDate()))
+	Countdown = append(Countdown, NationalConstitutionDay)
+
+	ThanksgivingDay.SetChineseName("感恩节")
+	ThanksgivingDay.SetDate("11-25")
+	ThanksgivingDay.SetSubDay(allInOne(ThanksgivingDay.GetDate()))
+	Countdown = append(Countdown, ThanksgivingDay)
+
+	Double12.SetChineseName("双十二")
+	Double12.SetDate("12-12")
+	Double12.SetSubDay(allInOne(Double12.GetDate()))
+	Countdown = append(Countdown)
+
+	NationalMemorialDay.SetChineseName("国家公祭日")
+	NationalMemorialDay.SetDate("12-13")
+	NationalMemorialDay.SetSubDay(allInOne(NationalMemorialDay.GetDate()))
+	Countdown = append(Countdown, NationalMemorialDay)
+
+	ChristmasEve.SetChineseName("平安夜")
+	ChristmasEve.SetDate("12-24")
+	ChristmasEve.SetSubDay(allInOne(ChristmasEve.GetDate()))
+	Countdown = append(Countdown, ChristmasEve)
+
+	Christmas.SetChineseName("圣诞节")
+	Christmas.SetDate("12-25")
+	Christmas.SetSubDay(allInOne(Christmas.GetDate()))
+	Countdown = append(Countdown, Christmas)
+
 }
 func allInOne(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
@@ -147,6 +236,7 @@ func SubDay() {
 	//solar()
 
 }
+
 //func solar() {
 //	subValentinesDay()
 //	subWomensDay()
@@ -177,6 +267,7 @@ func lunar() {
 	chineseDoubleNinthFestival()
 	chineseLabaFestival()
 }
+
 //
 ////情人节
 //func subValentinesDay() {
