@@ -2,6 +2,7 @@ package calendar
 
 import (
 	"fmt"
+	"github.com/nosixtools/solarlunar"
 	"strconv"
 	"strings"
 	"time"
@@ -26,11 +27,21 @@ const (
 	ChristmasEve             = "12-24" //平安夜
 	Christmas                = "12-25" //圣诞节
 )
+const (
+	ChineseNewYear = "01-01" //
+)
 
 //获取当前年份
 func thisYear() string {
 	ret := fmt.Sprint(time.Now().Format("2006"))
 	return ret
+}
+func nextYear() string {
+	this := thisYear()
+	i, _ := strconv.Atoi(this)
+	i += 1
+	s := strconv.Itoa(i)
+	return s
 }
 func SubDay() {
 	fmt.Println("早上好,摸鱼人!")
@@ -46,6 +57,7 @@ func SubDay() {
 		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
 	}()
 	defer nextNewYear()
+	chineseNewYear()
 	subValentinesDay()
 	subWomensDay()
 	subArborDay()
@@ -252,4 +264,24 @@ func nextNewYear() {
 		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
 
 	}
+}
+
+//func Lunar() {
+//	solarDate := "2022-01-01"
+//	fmt.Println(solarlunar.SolarToChineseLuanr(solarDate))
+//	fmt.Println(solarlunar.SolarToSimpleLuanr(solarDate))
+//
+//	lunarDate := "2022-01-01"
+//	fmt.Println(solarlunar.LunarToSolar(lunarDate, false))
+//}
+func chineseNewYear() {
+	y := nextYear()
+	CHY := strings.Join([]string{y, ChineseNewYear}, "-") //农历新年
+	convert := solarlunar.LunarToSolar(CHY, false)
+	ret, _ := time.Parse("2006-01-02", convert)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return
+	}
+	fmt.Printf("距离农历春节还有%v天\n", int(unsub.Hours())/24)
 }
