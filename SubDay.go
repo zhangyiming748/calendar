@@ -298,6 +298,5 @@ func nextNewYear() {
 	fmt.Printf("距离明年还有%v天\n", int(unsub.Hours())/24)
 	if int(unsub.Hours())/24 <= 31 {
 		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
-
 	}
 }
