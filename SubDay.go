@@ -9,6 +9,18 @@ import (
 	"time"
 )
 
+type countSlice []Festival
+
+func (c countSlice) Len() int { // 重写 Len() 方法
+	return len(c)
+}
+func (c countSlice) Swap(i, j int) { // 重写 Swap() 方法
+	c[i], c[j] = c[j], c[i]
+}
+func (c countSlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
+	return c[i].subDay < c[j].subDay
+}
+
 const (
 	Year = 365 //一年多少天
 )
@@ -76,21 +88,14 @@ var (
 )
 
 func init() {
-	defer func() {
-		for i, v := range Countdown {
-			fmt.Println(i, v)
-		}
-	}()
 	NewYear.SetChineseName("元旦")
 	NewYear.SetDate("01-01")
 	NewYear.SetSubDay(allInOne(NewYear.GetDate()))
-	//fmt.Println(NewYear)
 	Countdown = append(Countdown, NewYear)
 
 	ValentinesDay.SetChineseName("情人节")
 	ValentinesDay.SetDate("02-14")
 	ValentinesDay.SetSubDay(allInOne(ValentinesDay.GetDate()))
-	//fmt.Println(ValentinesDay)
 	Countdown = append(Countdown, ValentinesDay)
 
 	WomensDay.SetChineseName("妇女节")
@@ -156,7 +161,7 @@ func init() {
 	Double12.SetChineseName("双十二")
 	Double12.SetDate("12-12")
 	Double12.SetSubDay(allInOne(Double12.GetDate()))
-	Countdown = append(Countdown)
+	Countdown = append(Countdown, Double12)
 
 	NationalMemorialDay.SetChineseName("国家公祭日")
 	NationalMemorialDay.SetDate("12-13")
@@ -175,7 +180,7 @@ func init() {
 
 	ChineseNewYear.SetChineseName("春节")
 	ChineseNewYear.SetDate("12-29")
-	ChineseNewYear.SetSubDay(allInLuna(ChineseNewYear.GetDate())+2)
+	ChineseNewYear.SetSubDay(allInLuna(ChineseNewYear.GetDate()) + 2)
 	Countdown = append(Countdown, ChineseNewYear)
 
 	LanternFestival.SetChineseName("元宵节")
@@ -224,10 +229,6 @@ func init() {
 	Countdown = append(Countdown, LabaFestival)
 
 	sort.Sort(countSlice(Countdown))
-
-	for _, v := range Countdown {
-		fmt.Printf("排序之后的列表%v\n", v)
-	}
 }
 func allInOne(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
@@ -246,7 +247,6 @@ func allInLuna(date string) int {
 	return int(unsub.Hours()) / 24
 }
 
-
 //获取当前年份
 func thisYear() string {
 	ret := fmt.Sprint(time.Now().Format("2006"))
@@ -262,6 +262,16 @@ func nextYear() string {
 func SubDay() {
 	fmt.Println("早上好,摸鱼人!")
 	fmt.Println(time.Now().Format("今天是2006年1月2日"))
+	for _, v := range Countdown {
+		if v.GetSubDay() < 0 {
+			continue
+		}
+		if v.GetSubDay() == 0 {
+			fmt.Printf("明天是%v\n", v.GetChineseName())
+			continue
+		}
+		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
+	}
 	fmt.Println("【摸鱼办】提醒您")
 	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
 	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
@@ -272,10 +282,6 @@ func SubDay() {
 		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
 		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
 	}()
-	defer nextNewYear()
-	//lunar()
-	//solar()
-
 }
 
 //计算和元旦的差值
@@ -294,16 +300,4 @@ func nextNewYear() {
 		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
 
 	}
-}
-
-type countSlice []Festival
-
-func (c countSlice) Len() int { // 重写 Len() 方法
-	return len(c)
-}
-func (c countSlice) Swap(i, j int) { // 重写 Swap() 方法
-	c[i], c[j] = c[j], c[i]
-}
-func (c countSlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
-	return c[i].subDay < c[j].subDay
 }
