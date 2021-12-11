@@ -7,7 +7,7 @@ import (
 
 func TestUnit(t *testing.T) {
 	thisYear()
-	chineseNewYear()
+	//chineseNewYear()
 }
 func TestMaster(t *testing.T) {
 	SubDay()
