@@ -90,92 +90,92 @@ var (
 func init() {
 	NewYear.SetChineseName("元旦")
 	NewYear.SetDate("01-01")
-	NewYear.SetSubDay(allInOne(NewYear.GetDate()))
+	NewYear.SetSubDay(allInSolar(NewYear.GetDate()))
 	Countdown = append(Countdown, NewYear)
 
 	ValentinesDay.SetChineseName("情人节")
 	ValentinesDay.SetDate("02-14")
-	ValentinesDay.SetSubDay(allInOne(ValentinesDay.GetDate()))
+	ValentinesDay.SetSubDay(allInSolar(ValentinesDay.GetDate()))
 	Countdown = append(Countdown, ValentinesDay)
 
 	WomensDay.SetChineseName("妇女节")
 	WomensDay.SetDate("03-08")
-	WomensDay.SetSubDay(allInOne(WomensDay.GetDate()))
+	WomensDay.SetSubDay(allInSolar(WomensDay.GetDate()))
 	Countdown = append(Countdown, WomensDay)
 
 	ArborDay.SetChineseName("植树节")
 	ArborDay.SetDate("03-12")
-	ArborDay.SetSubDay(allInOne(ArborDay.GetDate()))
+	ArborDay.SetSubDay(allInSolar(ArborDay.GetDate()))
 	Countdown = append(Countdown, ArborDay)
 
 	AprilFoolsDay.SetChineseName("愚人节")
 	AprilFoolsDay.SetDate("04-01")
-	AprilFoolsDay.SetSubDay(allInOne(AprilFoolsDay.GetDate()))
+	AprilFoolsDay.SetSubDay(allInSolar(AprilFoolsDay.GetDate()))
 	Countdown = append(Countdown, AprilFoolsDay)
 
 	LaborDay.SetChineseName("劳动节")
 	LaborDay.SetDate("05-01")
-	LaborDay.SetSubDay(allInOne(LaborDay.GetDate()))
+	LaborDay.SetSubDay(allInSolar(LaborDay.GetDate()))
 	Countdown = append(Countdown, LaborDay)
 
 	YouthDay.SetChineseName("青年节")
 	YouthDay.SetDate("05-04")
-	YouthDay.SetSubDay(allInOne(YouthDay.GetDate()))
+	YouthDay.SetSubDay(allInSolar(YouthDay.GetDate()))
 	Countdown = append(Countdown, YouthDay)
 
 	ChildrensDay.SetChineseName("儿童节")
 	ChildrensDay.SetDate("06-01")
-	ChildrensDay.SetSubDay(allInOne(ChildrensDay.GetDate()))
+	ChildrensDay.SetSubDay(allInSolar(ChildrensDay.GetDate()))
 	Countdown = append(Countdown, ChildrensDay)
 
 	NationalDay.SetChineseName("国庆节")
 	NationalDay.SetDate("10-01")
-	NationalDay.SetSubDay(allInOne(NationalDay.GetDate()))
+	NationalDay.SetSubDay(allInSolar(NationalDay.GetDate()))
 	Countdown = append(Countdown, NationalDay)
 
 	NationalPovertyReliefDay.SetChineseName("国家扶贫日")
 	NationalPovertyReliefDay.SetDate("10-17")
-	NationalPovertyReliefDay.SetSubDay(allInOne(NationalPovertyReliefDay.GetDate()))
+	NationalPovertyReliefDay.SetSubDay(allInSolar(NationalPovertyReliefDay.GetDate()))
 	Countdown = append(Countdown, NationalPovertyReliefDay)
 
 	Halloween.SetChineseName("万圣夜")
 	Halloween.SetDate("10-31")
-	Halloween.SetSubDay(allInOne(Halloween.GetDate()))
+	Halloween.SetSubDay(allInSolar(Halloween.GetDate()))
 	Countdown = append(Countdown, Halloween)
 
 	Double11.SetChineseName("双十一")
 	Double11.SetDate("11-11")
-	Double11.SetSubDay(allInOne(Double11.GetDate()))
+	Double11.SetSubDay(allInSolar(Double11.GetDate()))
 	Countdown = append(Countdown, Double11)
 
 	NationalConstitutionDay.SetChineseName("国家宪法日")
 	NationalConstitutionDay.SetDate("12-04")
-	NationalConstitutionDay.SetSubDay(allInOne(NationalConstitutionDay.GetDate()))
+	NationalConstitutionDay.SetSubDay(allInSolar(NationalConstitutionDay.GetDate()))
 	Countdown = append(Countdown, NationalConstitutionDay)
 
 	ThanksgivingDay.SetChineseName("感恩节")
 	ThanksgivingDay.SetDate("11-25")
-	ThanksgivingDay.SetSubDay(allInOne(ThanksgivingDay.GetDate()))
+	ThanksgivingDay.SetSubDay(allInSolar(ThanksgivingDay.GetDate()))
 	Countdown = append(Countdown, ThanksgivingDay)
 
 	Double12.SetChineseName("双十二")
 	Double12.SetDate("12-12")
-	Double12.SetSubDay(allInOne(Double12.GetDate()))
+	Double12.SetSubDay(allInSolar(Double12.GetDate()))
 	Countdown = append(Countdown, Double12)
 
 	NationalMemorialDay.SetChineseName("国家公祭日")
 	NationalMemorialDay.SetDate("12-13")
-	NationalMemorialDay.SetSubDay(allInOne(NationalMemorialDay.GetDate()))
+	NationalMemorialDay.SetSubDay(allInSolar(NationalMemorialDay.GetDate()))
 	Countdown = append(Countdown, NationalMemorialDay)
 
 	ChristmasEve.SetChineseName("平安夜")
 	ChristmasEve.SetDate("12-24")
-	ChristmasEve.SetSubDay(allInOne(ChristmasEve.GetDate()))
+	ChristmasEve.SetSubDay(allInSolar(ChristmasEve.GetDate()))
 	Countdown = append(Countdown, ChristmasEve)
 
 	Christmas.SetChineseName("圣诞节")
 	Christmas.SetDate("12-25")
-	Christmas.SetSubDay(allInOne(Christmas.GetDate()))
+	Christmas.SetSubDay(allInSolar(Christmas.GetDate()))
 	Countdown = append(Countdown, Christmas)
 
 	ChineseNewYear.SetChineseName("春节")
@@ -230,7 +230,7 @@ func init() {
 
 	sort.Sort(countSlice(Countdown))
 }
-func allInOne(date string) int {
+func allInSolar(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
 	ret, _ := time.Parse("2006-01-02", day)
 	unsub := ret.Sub(time.Now())

@@ -13,7 +13,7 @@ func TestMaster(t *testing.T) {
 	SubDay()
 }
 func TestNextYear(t *testing.T) {
-	ret:=nextYear()
+	ret := nextYear()
 	t.Log(ret)
 }
 func TestStructs(t *testing.T) {
@@ -24,7 +24,7 @@ func TestStructs(t *testing.T) {
 	t.Log(NewYear.GetChineseName())
 	NewYear.SetDate("01-01")
 	t.Log(NewYear.GetChineseName())
-	NewYear.SetSubDay(allInOne(NewYear.GetDate()))
+	NewYear.SetSubDay(allInSolar(NewYear.GetDate()))
 	fmt.Println(NewYear.GetDate())
 
 }
