@@ -261,13 +261,19 @@ func nextYear() string {
 }
 func SubDay() {
 	fmt.Println("早上好,摸鱼人!")
-	fmt.Println(time.Now().Format("今天是2006年1月2日"))
+	fmt.Print(time.Now().Format("今天是2006年1月2日"))
+	for _, v := range Countdown {
+		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
+			fmt.Printf("\t%v\n", v.GetChineseName())
+		}
+	}
 	for _, v := range Countdown {
 		if v.GetSubDay() < 0 {
 			continue
 		}
-		if v.GetSubDay() == 0 {
-			fmt.Printf("明天是%v\n", v.GetChineseName())
+
+		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
+			//fmt.Printf("明天是%v\n", v.GetChineseName())
 			continue
 		}
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
