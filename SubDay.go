@@ -244,6 +244,9 @@ func allInLuna(date string) int {
 	convert := solarlunar.LunarToSolar(day, false)
 	ret, _ := time.Parse("2006-01-02", convert)
 	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return int(unsub.Hours())/24 + Year
+	}
 	return int(unsub.Hours()) / 24
 }
 

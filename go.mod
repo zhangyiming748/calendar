@@ -1,4 +1,4 @@
-module github.com/zhangyiming748/calendar
+module github.com/zhangyiming748/calendar/v2
 
 go 1.17
 
