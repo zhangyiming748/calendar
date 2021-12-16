@@ -132,7 +132,7 @@ func TestUniCode(t *testing.T) {
 }
 
 func master() {
-	rand.Intn(8)
+
 	switch rand.Intn(10) {
 
 	case 1:
@@ -153,8 +153,83 @@ func master() {
 		fmt.Println("嘀，您出生在了摸鱼阁，您家财万贯， 嘀，您死了。")
 	}
 }
+func puzzle() {
+	perfix := ""
+	suffix := ""
+	mid := ""
+	rand.Seed(int64(rand.Intn(64)))
+	switch rand.Intn(5) {
+	case 1:
+		perfix = "曹家"
+	case 2:
+		perfix = "石漠城"
+	case 3:
+		perfix = "叶家"
+	case 4:
+		perfix = "乌坦城"
+	case 5:
+		perfix = "摸鱼阁"
+	}
+	rand.Seed(int64(rand.Intn(64)))
+	switch rand.Intn(6) {
+	case 1:
+		mid = "一贫如洗"
+	case 2:
+		mid = "丰衣足食"
+	case 3:
+		mid = "粗茶淡饭"
+	case 4:
+		mid = "富甲一方"
+	case 5:
+		mid = "饥寒交迫"
+	case 6:
+		mid = "家财万贯"
+	}
+	rand.Seed(int64(rand.Intn(64)))
+	switch rand.Intn(4) {
+	case 1:
+		suffix = "嘀，您死了"
+	case 2:
+		suffix = "当前状态： 等级：0 金币：216 血脉等级：玄阶高级 功法等级：玄阶中级"
+	case 3:
+		suffix = "当前状态： 等级：0 金币：54 血脉等级：黄阶高级 功法等级：黄阶高级"
+	case 4:
+		suffix = "当前状态： 等级：0 金币：9 血脉等级：黄阶高级 功法等级：黄阶中级"
+	}
+	result := fmt.Sprintf("\"嘀，您出生在了%v，您%v， %v\"", perfix, mid, suffix)
+	fmt.Println(result)
+}
 func BenchmarkMaster(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		master()
+		puzzle()
+	}
+}
+func seed() {
+	rand.Seed(32)
+	fmt.Println("第一轮")
+	for i := 0; i < 10; i++ {
+		fmt.Printf(" %v", rand.Intn(10))
+	}
+	fmt.Println("第一轮")
+	rand.Seed(64)
+	fmt.Println("第二轮")
+	for i := 0; i < 10; i++ {
+		fmt.Print(rand.Intn(10))
+	}
+	fmt.Println("第二轮")
+
+	rand.Seed(128)
+	fmt.Println("第三轮")
+	for i := 0; i < 10; i++ {
+		fmt.Print(rand.Intn(10))
+	}
+	fmt.Println("第三轮")
+
+}
+func BenchmarkSeed(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		{
+			seed()
+		}
 	}
 }
