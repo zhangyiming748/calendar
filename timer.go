@@ -8,12 +8,11 @@ import (
 )
 
 func Timer() {
-	now := time.Now().Format("今天是2006年1月2日\tPM3点04分05秒")
+	now := time.Now().Format("今天是2006年1月2日\nPM3点04分05秒")
 	hour := time.Now().Format("15")
 	inthour, _ := strconv.Atoi(hour)
 	now = strings.Replace(now, "AM", "上午", -1)
 	now = strings.Replace(now, "PM", "下午", -1)
-
 	if inthour >= 6 && inthour <= 11 {
 		fmt.Println("早上好,摸鱼人!")
 	}
