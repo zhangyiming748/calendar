@@ -263,8 +263,7 @@ func nextYear() string {
 	return s
 }
 func SubDay() {
-	fmt.Println("早上好,摸鱼人!")
-	fmt.Print(time.Now().Format("今天是2006年1月2日"))
+	Timer()
 	for _, v := range Countdown {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
 			fmt.Printf("\t%v\n", v.GetChineseName())
