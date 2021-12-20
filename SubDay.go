@@ -262,8 +262,11 @@ func nextYear() string {
 	s := strconv.Itoa(i)
 	return s
 }
-func SubDay() {
+func Calendar() {
 	Timer()
+	SubDay()
+}
+func SubDay() {
 	for _, v := range Countdown {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
 			fmt.Printf("\t%v\n", v.GetChineseName())

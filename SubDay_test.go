@@ -11,7 +11,7 @@ func TestUnit(t *testing.T) {
 	//chineseNewYear()
 }
 func TestMaster(t *testing.T) {
-	SubDay()
+	Calendar()
 }
 func TestNextYear(t *testing.T) {
 	ret := nextYear()
