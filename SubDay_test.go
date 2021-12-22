@@ -13,6 +13,17 @@ func TestUnit(t *testing.T) {
 func TestMaster(t *testing.T) {
 	Calendar()
 }
+func BenchmarkHeart(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Calendar()
+	}
+}
+func TestHappy(t *testing.T) {
+	HappyDay()
+}
+func TestSda(t *testing.T) {
+	SadDay()
+}
 func TestNextYear(t *testing.T) {
 	ret := nextYear()
 	t.Log(ret)
@@ -27,7 +38,6 @@ func TestStructs(t *testing.T) {
 	t.Log(NewYear.GetChineseName())
 	NewYear.SetSubDay(allInSolar(NewYear.GetDate()))
 	fmt.Println(NewYear.GetDate())
-
 }
 
 //英语音标

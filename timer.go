@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Timer() {
+func HappyTimer() {
 	now := time.Now().Format("今天是2006年1月2日\nPM3点04分05秒")
 	hour := time.Now().Format("15")
 	inthour, _ := strconv.Atoi(hour)
@@ -48,4 +48,34 @@ func Timer() {
 		fmt.Println("死咗都冇用咧,银纸冇得带去咧!")
 		fmt.Println("Happy下,饮酒,OK?")
 	}
+	fmt.Println("【摸鱼办】提醒您")
+	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
+	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
+	fmt.Println("吃饭时间就吃饭")
+	fmt.Println("午休时间就午休")
+	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
+}
+func SadTimer() {
+	now := time.Now().Format("今天是2006年1月2日\nPM3点04分05秒")
+	hour := time.Now().Format("15")
+	inthour, _ := strconv.Atoi(hour)
+	now = strings.Replace(now, "AM", "上午", -1)
+	now = strings.Replace(now, "PM", "下午", -1)
+	if inthour >= 6 && inthour <= 11 {
+		fmt.Println("早上好,开始内卷的一天!")
+	}
+	if inthour == 12 {
+		fmt.Println("中午好,别人休息的时候正是你内卷的好时候!")
+	}
+	if inthour >= 13 && inthour <= 17 {
+		fmt.Println("下午好,继续卷!")
+	}
+	if inthour >= 18 && inthour <= 22 {
+		fmt.Println("晚上好,坚持住!")
+	}
+	if inthour >= 23 && inthour <= 5 {
+		fmt.Println("晚上抓紧卷,不睡觉你才能获得比别人更多的时间!")
+	}
+	fmt.Println(now)
+	fmt.Println("【内卷办】提醒您")
 }

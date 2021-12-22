@@ -3,22 +3,33 @@ package calendar
 import (
 	"fmt"
 	"github.com/nosixtools/solarlunar"
+	"math/rand"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
 )
 
-type countSlice []Festival
+type HappySlice []Festival
+type SadSlice []Involution
 
-func (c countSlice) Len() int { // 重写 Len() 方法
+func (c HappySlice) Len() int { // 重写 Len() 方法
 	return len(c)
 }
-func (c countSlice) Swap(i, j int) { // 重写 Swap() 方法
+func (c HappySlice) Swap(i, j int) { // 重写 Swap() 方法
 	c[i], c[j] = c[j], c[i]
 }
-func (c countSlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
+func (c HappySlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
 	return c[i].subDay < c[j].subDay
+}
+func (s SadSlice) Len() int { // 重写 Len() 方法
+	return len(s)
+}
+func (s SadSlice) Swap(i, j int) { // 重写 Swap() 方法
+	s[i], s[j] = s[j], s[i]
+}
+func (s SadSlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
+	return s[i].subDay < s[j].subDay
 }
 
 const (
@@ -87,6 +98,48 @@ var (
 	LabaFestival        Festival //腊八节
 )
 
+type Involution struct { //内卷
+	chineseName string //日期中文名
+	subDay      int    //日期倒计时
+	date        string //当天
+}
+
+func (i *Involution) SetChineseName(s string) {
+	i.chineseName = s
+	return
+}
+func (i Involution) GetChineseName() string {
+	return i.chineseName
+}
+func (i *Involution) SetSubDay(n int) {
+	i.subDay = n
+	return
+}
+func (i Involution) GetSubDay() int {
+	return i.subDay
+}
+func (i *Involution) SetDate(s string) {
+	i.date = s
+	return
+}
+func (i Involution) GetDate() string {
+	return i.date
+}
+
+var (
+	Lyingflat                  []Involution
+	CollegeEntranceExamination Involution //高考
+
+)
+
+func init() {
+	CollegeEntranceExamination.SetChineseName("高考")
+	CollegeEntranceExamination.SetDate("06-07")
+	CollegeEntranceExamination.SetSubDay(allInSolar(CollegeEntranceExamination.GetDate()))
+	Lyingflat = append(Lyingflat, CollegeEntranceExamination)
+
+	sort.Sort(SadSlice(Lyingflat))
+}
 func init() {
 	NewYear.SetChineseName("元旦")
 	NewYear.SetDate("01-01")
@@ -228,7 +281,7 @@ func init() {
 	LabaFestival.SetSubDay(allInLuna(LabaFestival.GetDate()))
 	Countdown = append(Countdown, LabaFestival)
 
-	sort.Sort(countSlice(Countdown))
+	sort.Sort(HappySlice(Countdown))
 }
 func allInSolar(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
@@ -263,10 +316,19 @@ func nextYear() string {
 	return s
 }
 func Calendar() {
-	Timer()
-	SubDay()
+	rand.Seed(time.Now().Unix())
+	if rand.Intn(10)>3{//0-9
+		HappyDay()
+	}else {
+		SadDay()
+	}
 }
-func SubDay() {
+func HappyDay() {
+	HappyTimer()
+	defer func() {
+		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
+		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
+	}()
 	for _, v := range Countdown {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
 			fmt.Printf("\t%v\n", v.GetChineseName())
@@ -283,18 +345,25 @@ func SubDay() {
 		}
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
-	fmt.Println("【摸鱼办】提醒您")
-	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
-	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
-	fmt.Println("吃饭时间就吃饭")
-	fmt.Println("午休时间就午休")
-	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
-	defer func() {
-		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
-		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
-	}()
 }
-
+func SadDay() {
+	SadTimer()
+	for _, v := range Lyingflat {
+		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
+			fmt.Printf("\t%v\n", v.GetChineseName())
+		}
+	}
+	for _, v := range Lyingflat {
+		if v.GetSubDay() < 0 {
+			continue
+		}
+		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
+			//fmt.Printf("明天是%v\n", v.GetChineseName())
+			continue
+		}
+		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
+	}
+}
 //计算和元旦的差值
 func nextNewYear() {
 	thisYearInt, _ := strconv.Atoi(thisYear())
