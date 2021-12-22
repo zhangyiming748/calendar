@@ -317,9 +317,9 @@ func nextYear() string {
 }
 func Calendar() {
 	rand.Seed(time.Now().Unix())
-	if rand.Intn(10)>3{//0-9
+	if rand.Intn(10) > 3 { //0-9
 		HappyDay()
-	}else {
+	} else {
 		SadDay()
 	}
 }
@@ -364,6 +364,7 @@ func SadDay() {
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
 }
+
 //计算和元旦的差值
 func nextNewYear() {
 	thisYearInt, _ := strconv.Atoi(thisYear())
