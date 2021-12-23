@@ -96,6 +96,8 @@ var (
 	MidAutumnFestival   Festival //中秋节
 	DoubleNinthFestival Festival //重阳节
 	LabaFestival        Festival //腊八节
+	//其他
+	WinterOlympics Festival //冬奥会
 )
 
 type Involution struct { //内卷
@@ -281,10 +283,25 @@ func init() {
 	LabaFestival.SetSubDay(allInLuna(LabaFestival.GetDate()))
 	Countdown = append(Countdown, LabaFestival)
 
+	WinterOlympics.SetChineseName("2022冬奥会")
+	WinterOlympics.SetDate("2022-02-04")
+	WinterOlympics.SetSubDay(allInThisYear(WinterOlympics.GetDate()))
+	Countdown = append(Countdown, WinterOlympics)
+
 	sort.Sort(HappySlice(Countdown))
 }
 func allInSolar(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
+	ret, _ := time.Parse("2006-01-02", day)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return int(unsub.Hours())/24 + Year
+	}
+	return int(unsub.Hours()) / 24
+}
+//特殊日期 如奥运会
+func allInThisYear(date string) int {
+	day := date
 	ret, _ := time.Parse("2006-01-02", day)
 	unsub := ret.Sub(time.Now())
 	if unsub < 0 {
@@ -331,7 +348,8 @@ func HappyDay() {
 	}()
 	for _, v := range Countdown {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			fmt.Printf("\t%v\n", v.GetChineseName())
+			//fmt.Printf("明天是%v\n", v.GetChineseName())
+			continue
 		}
 	}
 	for _, v := range Countdown {
@@ -340,7 +358,7 @@ func HappyDay() {
 		}
 
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			//fmt.Printf("明天是%v\n", v.GetChineseName())
+			fmt.Printf("明天是%v\n", v.GetChineseName())
 			continue
 		}
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
