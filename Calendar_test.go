@@ -21,7 +21,7 @@ func BenchmarkHeart(b *testing.B) {
 func TestHappy(t *testing.T) {
 	HappyDay()
 }
-func TestSda(t *testing.T) {
+func TestSad(t *testing.T) {
 	SadDay()
 }
 func TestNextYear(t *testing.T) {
