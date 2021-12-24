@@ -25,10 +25,11 @@ var SadWeekDayMap = map[string]string{
 	"Saturday":  "星期六",
 	"Sunday":    "星期日",
 }
+
 func HappyTimer() {
 	nowDay := time.Now().Format("今天是2006年1月2日")
-	nowTime:= time.Now().Format("PM 3点04分05秒")
-	week:=time.Now().Weekday().String()
+	nowTime := time.Now().Format("PM 3点04分05秒")
+	week := time.Now().Weekday().String()
 	hour := time.Now().Format("15")
 	inthour, _ := strconv.Atoi(hour)
 	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
@@ -48,7 +49,7 @@ func HappyTimer() {
 	if inthour >= 23 && inthour <= 5 {
 		fmt.Println("晚上抓紧睡觉,休息好,第二天才有精神摸鱼!")
 	}
-	fmt.Println(nowDay,HappyWeekDayMap[week],nowTime)
+	fmt.Println(nowDay, HappyWeekDayMap[week], nowTime)
 	if inthour == 15 {
 		fmt.Println("喂!三点几咧!做......做撚啊做!")
 		fmt.Println("饮茶先啊!")
@@ -78,7 +79,7 @@ func HappyTimer() {
 func SadTimer() {
 	nowDay := time.Now().Format("今天是2006年1月2日")
 	nowTime := time.Now().Format("PM3点04分05秒")
-	week:=time.Now().Weekday().String()
+	week := time.Now().Weekday().String()
 	hour := time.Now().Format("15")
 	inthour, _ := strconv.Atoi(hour)
 	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
@@ -98,6 +99,6 @@ func SadTimer() {
 	if inthour >= 23 && inthour <= 5 {
 		fmt.Println("晚上抓紧卷,不睡觉你才能获得比别人更多的时间!")
 	}
-	fmt.Println(nowDay,nowTime,SadWeekDayMap[week])
+	fmt.Println(nowDay, nowTime, SadWeekDayMap[week])
 	fmt.Println("【内卷办】提醒您")
 }

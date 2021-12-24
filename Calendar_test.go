@@ -243,3 +243,9 @@ func BenchmarkSeed(b *testing.B) {
 		}
 	}
 }
+func TestUnit2(t *testing.T) {
+	var i uint8
+	t.Log(i)
+	i--
+	t.Log(i)
+}
