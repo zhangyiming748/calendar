@@ -7,12 +7,32 @@ import (
 	"time"
 )
 
+var HappyWeekDayMap = map[string]string{
+	"Monday":    "星期一",
+	"Tuesday":   "星期二",
+	"Wednesday": "星期三",
+	"Thursday":  "肯德基疯狂星期四",
+	"Friday":    "星期五",
+	"Saturday":  "星期六",
+	"Sunday":    "星期日",
+}
+var SadWeekDayMap = map[string]string{
+	"Monday":    "星期一",
+	"Tuesday":   "星期二",
+	"Wednesday": "星期三",
+	"Thursday":  "星期四",
+	"Friday":    "星期五不能松懈,明天一定要去公司加班哦!",
+	"Saturday":  "星期六",
+	"Sunday":    "星期日",
+}
 func HappyTimer() {
-	now := time.Now().Format("今天是2006年1月2日\nPM3点04分05秒")
+	nowDay := time.Now().Format("今天是2006年1月2日")
+	nowTime:= time.Now().Format("PM 3点04分05秒")
+	week:=time.Now().Weekday().String()
 	hour := time.Now().Format("15")
 	inthour, _ := strconv.Atoi(hour)
-	now = strings.Replace(now, "AM", "上午", -1)
-	now = strings.Replace(now, "PM", "下午", -1)
+	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
+	nowTime = strings.Replace(nowTime, "PM", "下午", -1)
 	if inthour >= 6 && inthour <= 11 {
 		fmt.Println("早上好,摸鱼人!")
 	}
@@ -28,7 +48,7 @@ func HappyTimer() {
 	if inthour >= 23 && inthour <= 5 {
 		fmt.Println("晚上抓紧睡觉,休息好,第二天才有精神摸鱼!")
 	}
-	fmt.Println(now)
+	fmt.Println(nowDay,HappyWeekDayMap[week],nowTime)
 	if inthour == 15 {
 		fmt.Println("喂!三点几咧!做......做撚啊做!")
 		fmt.Println("饮茶先啊!")
@@ -56,11 +76,13 @@ func HappyTimer() {
 	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
 }
 func SadTimer() {
-	now := time.Now().Format("今天是2006年1月2日\nPM3点04分05秒")
+	nowDay := time.Now().Format("今天是2006年1月2日")
+	nowTime := time.Now().Format("PM3点04分05秒")
+	week:=time.Now().Weekday().String()
 	hour := time.Now().Format("15")
 	inthour, _ := strconv.Atoi(hour)
-	now = strings.Replace(now, "AM", "上午", -1)
-	now = strings.Replace(now, "PM", "下午", -1)
+	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
+	nowTime = strings.Replace(nowTime, "PM", "下午", -1)
 	if inthour >= 6 && inthour <= 11 {
 		fmt.Println("早上好,开始内卷的一天!")
 	}
@@ -76,6 +98,6 @@ func SadTimer() {
 	if inthour >= 23 && inthour <= 5 {
 		fmt.Println("晚上抓紧卷,不睡觉你才能获得比别人更多的时间!")
 	}
-	fmt.Println(now)
+	fmt.Println(nowDay,nowTime,SadWeekDayMap[week])
 	fmt.Println("【内卷办】提醒您")
 }
