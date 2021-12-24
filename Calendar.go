@@ -3,6 +3,7 @@ package calendar
 import (
 	"fmt"
 	"github.com/nosixtools/solarlunar"
+	"log"
 	"math/rand"
 	"sort"
 	"strconv"
@@ -134,6 +135,9 @@ var (
 
 )
 
+func init() {
+	log.SetFlags(8|5)
+}
 func init() {
 	CollegeEntranceExamination.SetChineseName("高考")
 	CollegeEntranceExamination.SetDate("06-07")
