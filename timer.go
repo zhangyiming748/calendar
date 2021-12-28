@@ -8,11 +8,11 @@ import (
 )
 
 var HappyWeekDayMap = map[string]string{
-	"Monday":    "星期一",
-	"Tuesday":   "星期二",
-	"Wednesday": "星期三",
+	"Monday":    "星期一,还有四天周末",
+	"Tuesday":   "星期二,还有三天周末",
+	"Wednesday": "星期三,工作日过去一半了",
 	"Thursday":  "肯德基疯狂星期四",
-	"Friday":    "星期五",
+	"Friday":    "星期五,明天就放假了",
 	"Saturday":  "星期六",
 	"Sunday":    "星期日",
 }
