@@ -136,7 +136,7 @@ var (
 )
 
 func init() {
-	log.SetFlags(8|5)
+	log.SetFlags(8 | 5)
 }
 func init() {
 	CollegeEntranceExamination.SetChineseName("高考")
@@ -303,6 +303,7 @@ func allInSolar(date string) int {
 	}
 	return int(unsub.Hours()) / 24
 }
+
 //特殊日期 如奥运会
 func allInThisYear(date string) int {
 	day := date
