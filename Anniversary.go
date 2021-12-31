@@ -18,7 +18,7 @@ var (
 	SY           Anniversary //九一八事变
 	Чорнобиль    Anniversary //切尔诺贝利
 	福島第一原子力発電所事故 Anniversary //福岛核泄漏
-	GodBirth Anniversary //birth
+	GodBirth     Anniversary //birth
 )
 
 type Anniversary struct {
