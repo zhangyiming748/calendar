@@ -238,8 +238,9 @@ func init() {
 	Countdown = append(Countdown, Christmas)
 
 	ChineseNewYear.SetChineseName("春节")
-	ChineseNewYear.SetDate("12-29")
-	ChineseNewYear.SetSubDay(allInLuna(ChineseNewYear.GetDate()) + 2)
+	ChineseNewYear.SetDate("12-30")
+	//ToDo 农历的时间生成还有问题,预计在下个版本修复
+	ChineseNewYear.SetSubDay(allInSpring(ChineseNewYear.GetDate()) + 1 - 365 - 365)
 	Countdown = append(Countdown, ChineseNewYear)
 
 	LanternFestival.SetChineseName("元宵节")
@@ -316,6 +317,16 @@ func allInThisYear(date string) int {
 }
 func allInLuna(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
+	convert := solarlunar.LunarToSolar(day, false)
+	ret, _ := time.Parse("2006-01-02", convert)
+	unsub := ret.Sub(time.Now())
+	if unsub < 0 {
+		return int(unsub.Hours())/24 + Year
+	}
+	return int(unsub.Hours()) / 24
+}
+func allInSpring(date string) int {
+	day := strings.Join([]string{nextYear(), date}, "-")
 	convert := solarlunar.LunarToSolar(day, false)
 	ret, _ := time.Parse("2006-01-02", convert)
 	unsub := ret.Sub(time.Now())
@@ -407,3 +418,22 @@ func nextNewYear() {
 		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
 	}
 }
+
+// ToDo 实现通过网页请求
+/*
+func ShowWeb() {
+	1.创建路由
+	r := gin.Default()
+	2.绑定路由规则，执行的函数
+	gin.Context，封装了request和response
+	r.GET("/", func(c *gin.Context) {
+		c.String(http.StatusOK, "hello World!")
+	})
+	3.监听端口，默认在8080
+	Run("里面不指定端口号默认为8080")
+	r.Run(":8000")
+}
+func WebCalendar(w http.ResponseWriter, r *http.Request) {
+
+}
+*/
