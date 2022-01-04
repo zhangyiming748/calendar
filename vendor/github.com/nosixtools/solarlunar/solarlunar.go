@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
-	"strings"
 	"time"
+	"strings"
 )
 
 var MIN_YEAR = 1900

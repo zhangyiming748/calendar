@@ -249,3 +249,6 @@ func TestUnit2(t *testing.T) {
 	i--
 	t.Log(i)
 }
+func TestGift(t *testing.T) {
+	Gift()
+}
