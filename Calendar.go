@@ -135,9 +135,12 @@ var (
 
 )
 
+//设置日志输出格式
 func init() {
 	log.SetFlags(8 | 5)
 }
+
+//输入sad列表
 func init() {
 	CollegeEntranceExamination.SetChineseName("高考")
 	CollegeEntranceExamination.SetDate("06-07")
@@ -146,6 +149,8 @@ func init() {
 
 	sort.Sort(SadSlice(Lyingflat))
 }
+
+//输入happy列表
 func init() {
 	NewYear.SetChineseName("元旦")
 	NewYear.SetDate("01-01")
@@ -295,6 +300,8 @@ func init() {
 
 	sort.Sort(HappySlice(Countdown))
 }
+
+//计算公历时间
 func allInSolar(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
 	ret, _ := time.Parse("2006-01-02", day)
@@ -305,7 +312,7 @@ func allInSolar(date string) int {
 	return int(unsub.Hours()) / 24
 }
 
-//特殊日期 如奥运会
+//计算特殊日期 如奥运会
 func allInThisYear(date string) int {
 	day := date
 	ret, _ := time.Parse("2006-01-02", day)
@@ -315,6 +322,8 @@ func allInThisYear(date string) int {
 	}
 	return int(unsub.Hours()) / 24
 }
+
+//计算农历时间
 func allInLuna(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
 	convert := solarlunar.LunarToSolar(day, false)
@@ -325,13 +334,19 @@ func allInLuna(date string) int {
 	}
 	return int(unsub.Hours()) / 24
 }
+
+//计算春节时间
 func allInSpring(date string) int {
 	day := strings.Join([]string{thisYear(), date}, "-")
 	convert := solarlunar.LunarToSolar(day, false)
 	ret, _ := time.Parse("2006-01-02", convert)
 	unsub := ret.Sub(time.Now())
 	if unsub < 0 {
-		return int(unsub.Hours())/24 + Year
+		day := strings.Join([]string{nextYear(), date}, "-")
+		convert := solarlunar.LunarToSolar(day, false)
+		ret, _ := time.Parse("2006-01-02", convert)
+		unsub := ret.Sub(time.Now())
+		return int(unsub.Hours()) / 24
 	}
 	return int(unsub.Hours())/24 - 1
 }
@@ -418,22 +433,3 @@ func nextNewYear() {
 		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
 	}
 }
-
-// ToDo 实现通过网页请求
-/*
-func ShowWeb() {
-	1.创建路由
-	r := gin.Default()
-	2.绑定路由规则，执行的函数
-	gin.Context，封装了request和response
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "hello World!")
-	})
-	3.监听端口，默认在8080
-	Run("里面不指定端口号默认为8080")
-	r.Run(":8000")
-}
-func WebCalendar(w http.ResponseWriter, r *http.Request) {
-
-}
-*/
