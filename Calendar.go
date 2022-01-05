@@ -2,15 +2,21 @@ package calendar
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/nosixtools/solarlunar"
 	"log"
 	"math/rand"
+	"net/http"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
 )
 
+type Happy struct {
+	Title    string   `json:"title"`
+	Contents []string `json:"contents"`
+}
 type HappySlice []Festival
 type SadSlice []Involution
 
@@ -21,7 +27,7 @@ func (c HappySlice) Swap(i, j int) { // 重写 Swap() 方法
 	c[i], c[j] = c[j], c[i]
 }
 func (c HappySlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
-	return c[i].subDay < c[j].subDay
+	return c[i].SubDay < c[j].SubDay
 }
 func (s SadSlice) Len() int { // 重写 Len() 方法
 	return len(s)
@@ -30,7 +36,7 @@ func (s SadSlice) Swap(i, j int) { // 重写 Swap() 方法
 	s[i], s[j] = s[j], s[i]
 }
 func (s SadSlice) Less(i, j int) bool { // 重写 Less() 方法， 从大到小排序
-	return s[i].subDay < s[j].subDay
+	return s[i].SubDay < s[j].SubDay
 }
 
 const (
@@ -38,31 +44,31 @@ const (
 )
 
 type Festival struct {
-	chineseName string //节日中文名
-	subDay      int    //节日剩余日期
-	date        string //节日日期
+	ChineseName string `json:"chinese_name"` //节日中文名
+	SubDay      int    `json:"sub_day"`      //节日剩余日期
+	Date        string `json:"date"`         //节日日期
 }
 
 func (f *Festival) SetChineseName(s string) {
-	f.chineseName = s
+	f.ChineseName = s
 	return
 }
 func (f Festival) GetChineseName() string {
-	return f.chineseName
+	return f.ChineseName
 }
 func (f *Festival) SetSubDay(i int) {
-	f.subDay = i
+	f.SubDay = i
 	return
 }
 func (f Festival) GetSubDay() int {
-	return f.subDay
+	return f.SubDay
 }
 func (f *Festival) SetDate(s string) {
-	f.date = s
+	f.Date = s
 	return
 }
 func (f Festival) GetDate() string {
-	return f.date
+	return f.Date
 }
 
 var (
@@ -102,31 +108,31 @@ var (
 )
 
 type Involution struct { //内卷
-	chineseName string //日期中文名
-	subDay      int    //日期倒计时
-	date        string //当天
+	ChineseName string `json:"chinese_name"` //日期中文名
+	SubDay      int    `json:"sub_day"`      //日期倒计时
+	Date        string `json:"date"`         //当天
 }
 
 func (i *Involution) SetChineseName(s string) {
-	i.chineseName = s
+	i.ChineseName = s
 	return
 }
 func (i Involution) GetChineseName() string {
-	return i.chineseName
+	return i.ChineseName
 }
 func (i *Involution) SetSubDay(n int) {
-	i.subDay = n
+	i.SubDay = n
 	return
 }
 func (i Involution) GetSubDay() int {
-	return i.subDay
+	return i.SubDay
 }
 func (i *Involution) SetDate(s string) {
-	i.date = s
+	i.Date = s
 	return
 }
 func (i Involution) GetDate() string {
-	return i.date
+	return i.Date
 }
 
 var (
@@ -383,6 +389,14 @@ func HappyDay() {
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
 }
+func HappydayJson() []string {
+	days := []string{}
+	for _, v := range Countdown {
+		day := fmt.Sprintf("距离%v还有%v天", v.GetChineseName(), v.GetSubDay())
+		days = append(days, day)
+	}
+	return days
+}
 func SadDay() {
 	SadTimer()
 	for _, v := range Lyingflat {
@@ -420,20 +434,25 @@ func nextNewYear() {
 }
 
 // ToDo 实现通过网页请求
-/*
-func ShowWeb() {
-	1.创建路由
-	r := gin.Default()
-	2.绑定路由规则，执行的函数
-	gin.Context，封装了request和response
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "hello World!")
-	})
-	3.监听端口，默认在8080
-	Run("里面不指定端口号默认为8080")
-	r.Run(":8000")
-}
-func WebCalendar(w http.ResponseWriter, r *http.Request) {
 
+func ShowWeb() {
+	//1.创建路由
+	r := gin.Default()
+	//2.绑定路由规则，执行的函数
+	//gin.Context，封装了request和response
+	r.GET("/Countdown", CountdownDay)
+	//3.监听端口，默认在8080
+	//Run("里面不指定端口号默认为8080")
+	err := r.Run(":8000")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
-*/
+func CountdownDay(ctx *gin.Context) {
+	content := Happy{
+		Title:    "Happy",
+		Contents: HappydayJson(),
+	}
+	ctx.JSON(http.StatusOK, content)
+}
