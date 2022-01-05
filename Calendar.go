@@ -237,10 +237,10 @@ func init() {
 	Christmas.SetSubDay(allInSolar(Christmas.GetDate()))
 	Countdown = append(Countdown, Christmas)
 
-	ChineseNewYear.SetChineseName("春节")
-	ChineseNewYear.SetDate("12-30")
-	//ToDo 农历的时间生成还有问题,预计在下个版本修复
-	ChineseNewYear.SetSubDay(allInSpring(ChineseNewYear.GetDate()) + 1 - 365 - 365)
+	ChineseNewYear.SetChineseName("除夕")
+	ChineseNewYear.SetDate("01-01")
+	//ToDo 农历的春节时间暂时使用当年1号实现,年底如果发现问题再更改
+	ChineseNewYear.SetSubDay(allInSpring(ChineseNewYear.GetDate()))
 	Countdown = append(Countdown, ChineseNewYear)
 
 	LanternFestival.SetChineseName("元宵节")
@@ -326,14 +326,14 @@ func allInLuna(date string) int {
 	return int(unsub.Hours()) / 24
 }
 func allInSpring(date string) int {
-	day := strings.Join([]string{nextYear(), date}, "-")
+	day := strings.Join([]string{thisYear(), date}, "-")
 	convert := solarlunar.LunarToSolar(day, false)
 	ret, _ := time.Parse("2006-01-02", convert)
 	unsub := ret.Sub(time.Now())
 	if unsub < 0 {
 		return int(unsub.Hours())/24 + Year
 	}
-	return int(unsub.Hours()) / 24
+	return int(unsub.Hours())/24 - 1
 }
 
 //获取当前年份
