@@ -457,6 +457,11 @@ func ShowWeb() {
 	r.GET("/", StandRequest)
 	//3.监听端口，默认在8080
 	//Run("里面不指定端口号默认为8080")
+	if err := r.SetTrustedProxies([]string{"0.0.0.0"}); err != nil {
+		return
+	}
+	//gin.SetMode(gin.ReleaseMode)
+
 	err := r.Run(":8000")
 	if err != nil {
 		fmt.Println(err)
