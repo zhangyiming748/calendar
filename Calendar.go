@@ -17,6 +17,10 @@ type Happy struct {
 	Title    string   `json:"title"`
 	Contents []string `json:"contents"`
 }
+type Sad struct {
+	Title    string   `json:"title"`
+	Contents []string `json:"contents"`
+}
 type HappySlice []Festival
 type SadSlice []Involution
 
@@ -389,7 +393,7 @@ func HappyDay() {
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
 }
-func HappydayJson() []string {
+func HappyDayJson() []string {
 	days := []string{}
 	for _, v := range Countdown {
 		day := fmt.Sprintf("距离%v还有%v天", v.GetChineseName(), v.GetSubDay())
@@ -414,6 +418,14 @@ func SadDay() {
 		}
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
+}
+func SadDayJson() []string {
+	days := []string{}
+	for _, v := range Lyingflat {
+		day := fmt.Sprintf("距离%v还有%v天", v.GetChineseName(), v.GetSubDay())
+		days = append(days, day)
+	}
+	return days
 }
 
 //计算和元旦的差值
@@ -440,7 +452,9 @@ func ShowWeb() {
 	r := gin.Default()
 	//2.绑定路由规则，执行的函数
 	//gin.Context，封装了request和response
-	r.GET("/Countdown", CountdownDay)
+	r.GET("/HappyCount", HappyDayCountdown)
+	r.GET("/SadCount", SadDayCountdown)
+	r.GET("/", StandRequest)
 	//3.监听端口，默认在8080
 	//Run("里面不指定端口号默认为8080")
 	err := r.Run(":8000")
@@ -449,10 +463,96 @@ func ShowWeb() {
 		return
 	}
 }
-func CountdownDay(ctx *gin.Context) {
+func HappyDayCountdown(ctx *gin.Context) {
 	content := Happy{
 		Title:    "Happy",
-		Contents: HappydayJson(),
+		Contents: HappyDayJson(),
 	}
 	ctx.JSON(http.StatusOK, content)
+}
+func SadDayCountdown(ctx *gin.Context) {
+	content := Sad{
+		Title:    "Sad",
+		Contents: SadDayJson(),
+	}
+	ctx.JSON(http.StatusOK, content)
+}
+
+type stand struct {
+	Title []string `json:"title"`
+	Count []string `json:"count"`
+	Tail  []string `json:"tail"`
+}
+
+func StandRequest(ctx *gin.Context) {
+	content := stand{
+		Title: StandHeadJson(),
+		Count: HappyDayJson(),
+		Tail:  StandTailJson(),
+	}
+	ctx.JSON(http.StatusOK, content)
+}
+func StandHeadJson() []string {
+	Heads := []string{}
+	nowDay := time.Now().Format("今天是2006年1月2日")
+	//Heads=append(Heads,nowDay)
+	nowTime := time.Now().Format("PM 3点04分05秒")
+	//Heads=append(Heads,nowTime)
+	week := time.Now().Weekday().String()
+	hour := time.Now().Format("15")
+	inthour, _ := strconv.Atoi(hour)
+	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
+	nowTime = strings.Replace(nowTime, "PM", "下午", -1)
+	if inthour >= 6 && inthour <= 11 {
+		Heads = append(Heads, fmt.Sprint("早上好,摸鱼人!"))
+	}
+	if inthour == 12 {
+		Heads = append(Heads, fmt.Sprint("中午好,摸鱼人!"))
+	}
+	if inthour >= 13 && inthour <= 17 {
+		Heads = append(Heads, fmt.Sprint("下午好,摸鱼人!"))
+	}
+	if inthour >= 18 && inthour <= 22 {
+		Heads = append(Heads, fmt.Sprint("晚上好,摸鱼人!"))
+	}
+	if inthour >= 23 && inthour <= 5 {
+		Heads = append(Heads, fmt.Sprint("晚上抓紧睡觉,休息好,第二天才有精神摸鱼!"))
+	}
+	Heads = append(Heads, fmt.Sprint(nowDay, HappyWeekDayMap[week], nowTime))
+	Heads = append(Heads, fmt.Sprint("上班是帮老板赚钱,摸鱼是赚老板的钱!"))
+	Heads = append(Heads, fmt.Sprint("该休息就休息,该放松就放松"))
+
+	if inthour == 15 {
+		Heads = append(Heads, fmt.Sprint("喂!三点几咧!做......做撚啊做!"))
+		Heads = append(Heads, fmt.Sprint("饮茶先啊!"))
+		Heads = append(Heads, fmt.Sprint("三点几 饮......饮茶先啊!"))
+		Heads = append(Heads, fmt.Sprint("做咁多都冇用嘅,老细唔锡你嘅咧!"))
+		Heads = append(Heads, fmt.Sprint("喂!饮下茶先啊!三点几咧!"))
+		Heads = append(Heads, fmt.Sprint("做碌鸠啊做!"))
+	}
+	if inthour == 18 {
+		Heads = append(Heads, fmt.Sprint("喂!朋友!"))
+		Heads = append(Heads, fmt.Sprint("做乜嘢咁多啦?差唔多七点咧!"))
+		Heads = append(Heads, fmt.Sprint("放工啦!唔使做咁多啦!"))
+		Heads = append(Heads, fmt.Sprint("做咁多,钱带去边度?"))
+		Heads = append(Heads, fmt.Sprint("差唔多七点咧!放工!"))
+		Heads = append(Heads, fmt.Sprint("落去茶室,饮下靓靓嘅杯......麦啤酒、黑啤酒,OK?"))
+		Heads = append(Heads, fmt.Sprint("Happy下,唔使做咁多."))
+		Heads = append(Heads, fmt.Sprint("死咗都冇用咧,银纸冇得带去咧!"))
+		Heads = append(Heads, fmt.Sprint("Happy下,饮酒,OK?"))
+	}
+	Heads = append(Heads, fmt.Sprint("【摸鱼办】提醒您"))
+	Heads = append(Heads, fmt.Sprint("工作再累,一定不要忘记摸鱼哦!"))
+	Heads = append(Heads, fmt.Sprint("有事没事起身去茶水间,去厕所,去廊道走走"))
+	Heads = append(Heads, fmt.Sprint("吃饭时间就吃饭"))
+	Heads = append(Heads, fmt.Sprint("午休时间就午休"))
+	Heads = append(Heads, fmt.Sprint("别老在工位上坐着,钱是老板的,但命是自己的"))
+	Heads = append(Heads)
+
+	return Heads
+}
+func StandTailJson() []string {
+	tails := []string{}
+	tails = append(tails, fmt.Sprint("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天"))
+	return tails
 }
