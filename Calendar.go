@@ -4,11 +4,17 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/zhangyiming748/calendar/v3/controller"
+	"strconv"
+	"strings"
 )
 
-func ShowWeb() {
-
+func ShowWeb(port int) {
+	if port < 1024 || port > 65535 {
+		panic("端口号取值范围1024-65535")
+	}
 	//1.创建路由
+	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 	//2.绑定路由规则，执行的函数
 	//gin.Context，封装了request和response
@@ -21,9 +27,11 @@ func ShowWeb() {
 	if err := r.SetTrustedProxies([]string{"0.0.0.0"}); err != nil {
 		return
 	}
-	//gin.SetMode(gin.ReleaseMode)
 
-	err := r.Run(":8000")
+
+
+	addr := strings.Join([]string{":", strconv.Itoa(port)}, "")
+	err := r.Run(addr)
 	if err != nil {
 		fmt.Println(err)
 		return
