@@ -6,11 +6,13 @@ import (
 	"github.com/zhangyiming748/calendar/v3/controller"
 	"log"
 	"net/http"
+	"runtime"
 	"strconv"
 	"strings"
 )
 
 func ShowWeb(port int) {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	if port < 1024 || port > 65535 {
 		panic("端口号取值范围1024-65535")
 	}
