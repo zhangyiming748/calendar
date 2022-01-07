@@ -4,9 +4,11 @@ import (
 	"log"
 	"sort"
 )
+
 const (
 	Year = 365 //一年多少天
 )
+
 var (
 	Countdown []Festival
 	//公历节日
@@ -64,6 +66,7 @@ var (
 	Lyingflat                  []Involution
 	CollegeEntranceExamination Involution //高考
 )
+
 type Festival struct {
 	ChineseName string `json:"chinese_name"` //节日中文名
 	SubDay      int    `json:"sub_day"`      //节日剩余日期
@@ -82,7 +85,7 @@ type Involution struct { //内卷
 type Happy struct {
 	Title    string   `json:"title"`
 	Contents []string `json:"contents"`
-	Tail []string `json:"tail"`
+	Tail     []string `json:"tail"`
 }
 type Sad struct {
 	Title    string   `json:"title"`
@@ -90,6 +93,7 @@ type Sad struct {
 }
 type HappySlice []Festival
 type SadSlice []Involution
+
 func init() {
 	NewYear.SetChineseName("元旦")
 	NewYear.SetDate("01-01")
