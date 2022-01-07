@@ -1,6 +1,10 @@
-# Object file
-*.o
-
-# Ada Library Information
-*.ali
-/unit_test.go
+# 忽略 vendor 文件夹
+vendor
+# 忽略 test 文件夹
+test
+# 忽略 idea 文件夹
+.idea
+# 忽略媒体文件
+users.txt
+*.mp4
+done
