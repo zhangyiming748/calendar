@@ -12,7 +12,7 @@ var HappyWeekDayMap = map[string]string{
 	"Tuesday":   "星期二,还有三天周末",
 	"Wednesday": "星期三,工作日过去一半了",
 	"Thursday":  "肯德基疯狂星期四",
-	"Friday":    "星期五,明天就放假了",
+	"Friday":    "周五就应该有周五的态度,有什么事下周一再说",
 	"Saturday":  "星期六",
 	"Sunday":    "星期日",
 }
