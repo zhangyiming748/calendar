@@ -1,2 +1,101 @@
-3499444444
-1378690042
+usage: go mod edit [editing flags] [-fmt|-print|-json] [go.mod]
+
+Edit provides a command-line interface for editing go.mod,
+for use primarily by tools or scripts. It reads only go.mod;
+it does not look up information about the modules involved.
+By default, edit reads and writes the go.mod file of the main module,
+but a different target file can be specified after the editing flags.
+
+The editing flags specify a sequence of editing operations.
+
+The -fmt flag reformats the go.mod file without making other changes.
+This reformatting is also implied by any other modifications that use or
+rewrite the go.mod file. The only time this flag is needed is if no other
+flags are specified, as in 'go mod edit -fmt'.
+
+The -module flag changes the module's path (the go.mod file's module line).
+
+The -require=path@version and -droprequire=path flags
+add and drop a requirement on the given module path and version.
+Note that -require overrides any existing requirements on path.
+These flags are mainly for tools that understand the module graph.
+Users should prefer 'go get path@version' or 'go get path@none',
+根据需要进行其他 go.mod 调整以满足
+其他模块施加的约束。
+
+-exclude=path@version 和 -dropexclude=path@version 标志
+添加和删​​除给定模块路径和版本的排除项。
+请注意，如果该排除已存在，则 -exclude=path@version 是无操作。
+
+-replace=old[@v]=new[@v] 标志添加给定的替换
+模块路径和版本对。如果省略了 old@v 中的 @v，则一个
+添加了左侧没有版本的替换，适用
+到旧模块路径的所有版本。如果省略了 new@v 中的@v，
+新路径应该是本地模块根目录，而不是模块
+小路。请注意，-replace 会覆盖旧 [@v] 的任何冗余替换，
+所以省略@v 将删除特定版本的现有替换。
+
+-dropreplace=old[@v] 标志丢弃给定的替换
+模块路径和版本对。如果省略@v，则替换不带
+左侧的版本已删除。
+
+-retract=version 和 -dropretract=version 标志添加和删除一个
+撤回给定版本。版本可能是单一版本
+像“v1.2.3”或像“[v1.1.0,v1.1.9]”这样的闭区间。注意
+-retract=version 如果撤回已经存在，则为空操作。
+
+-require, -droprequire, -exclude, -dropexclude, -replace,
+-dropreplace、-retract 和 -dropretract 编辑标志可以重复，
+并按照给定的顺序应用更改。
+
+-go=version 标志设置预期的 Go 语言版本。
+
+-print 标志以其文本格式打印最终的 go.mod 而不是
+将其写回 go.mod。
+
+-json 标志以 JSON 格式打印最终的 go.mod 文件，而不是
+将其写回 go.mod。 JSON 输出对应于这些 Go 类型：
+	type Module struct {
+		Path    string
+		Version string
+	}
+
+	type GoMod struct {
+		Module  ModPath
+		Go      string
+		Require []Require
+		Exclude []Module
+		Replace []Replace
+		Retract []Retract
+	}
+
+	type ModPath struct {
+		Path       string
+		Deprecated string
+	}
+
+	type Require struct {
+		Path string
+		Version string
+		Indirect bool
+	}
+
+	type Replace struct {
+		Old Module
+		New Module
+	}
+
+	type Retract struct {
+		Low       string
+		High      string
+		Rationale string
+	}
+
+表示单个版本（不是间隔）的撤回条目将具有
+“低”和“高”字段设置为相同的值。
+
+注意这里只描述了 go.mod 文件本身，不描述其他模块
+间接提到。对于构建可用的全套模块，
+使用'go list -m -json all'。
+
+有关“go mod edit”的更多信息，请参阅 https://golang.org/ref/mod#go-mod-edit。
