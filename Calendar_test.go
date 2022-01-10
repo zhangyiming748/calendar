@@ -172,3 +172,12 @@ func BenchmarkSeed(b *testing.B) {
 func TestGift(t *testing.T) {
 	Gift()
 }
+func TestTimer(t *testing.T) {
+	SadTimer()
+}
+func TestUnit3(t *testing.T) {
+	CountDay("1991年12月25日")
+}
+func TestUnit4(t *testing.T) {
+	AnniversaryDay()
+}
