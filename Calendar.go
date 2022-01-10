@@ -364,7 +364,6 @@ func nextYear() string {
 	return s
 }
 func Calendar() {
-	defer AnniversaryDay()
 	rand.Seed(time.Now().Unix())
 	if rand.Intn(10) > 3 { //0-9
 		HappyDay()
