@@ -1,6 +1,14 @@
 package calendar
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+var (
+	words = []string{"年轻的时候千万不要因为没钱而绝望,因为你要知道,你以后没钱的日子还很多"}
+)
 
 func Gift() {
 	src := "./users.txt"
@@ -35,4 +43,6 @@ func Gift() {
 		fmt.Printf("四季酒店全体技师预祝大客户%v节日快乐,期待您的下次光临\n", user)
 		fmt.Printf("八号公馆全体技师预祝大客户%v节日快乐,期待您的下次光临\n", user)
 	}
+	rand.Seed(time.Now().Unix())
+	fmt.Println(words[rand.Intn(len(words))])
 }
