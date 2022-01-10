@@ -8,3 +8,5 @@ test
 users.txt
 *.mp4
 done
+# 忽略日志文件
+*.log

@@ -2,10 +2,12 @@ package calendar
 
 import (
 	"fmt"
+	"github.com/zhangyiming748/calendar/v2/util/log"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
+
 )
 
 var (
@@ -95,9 +97,9 @@ func AnniversaryDay() {
 		//fmt.Printf("距离%v已经过去了%v周年\n", v.GetName(), v.GetSubDay())
 		switch v.GetName() {
 		case "快播关闭":
-			fmt.Printf("距离%v已经过去了%v周年\t但你还欠王欣一个年费会员\n", v.GetName(), v.GetSubDay())
+			log.Debug.Printf("距离%v已经过去了%v周年\t但你还欠王欣一个年费会员\n", v.GetName(), v.GetSubDay())
 		default:
-			fmt.Printf("距离%v已经过去了%v周年\n", v.GetName(), v.GetSubDay())
+			log.Debug.Printf("距离%v已经过去了%v周年\n", v.GetName(), v.GetSubDay())
 		}
 	}
 }

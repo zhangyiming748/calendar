@@ -2,7 +2,6 @@ package calendar
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
 )
 
@@ -137,47 +136,4 @@ func TestUniCode(t *testing.T) {
 	fmt.Println("\u02AE")
 	fmt.Println("\u02AF")
 
-}
-
-func seed() {
-	rand.Seed(32)
-	fmt.Println("第一轮")
-	for i := 0; i < 10; i++ {
-		fmt.Printf(" %v", rand.Intn(10))
-	}
-	fmt.Println("第一轮")
-	rand.Seed(64)
-	fmt.Println("第二轮")
-	for i := 0; i < 10; i++ {
-		fmt.Print(rand.Intn(10))
-	}
-	fmt.Println("第二轮")
-
-	rand.Seed(128)
-	fmt.Println("第三轮")
-	for i := 0; i < 10; i++ {
-		fmt.Print(rand.Intn(10))
-	}
-	fmt.Println("第三轮")
-
-}
-func BenchmarkSeed(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		{
-			seed()
-		}
-	}
-}
-
-func TestGift(t *testing.T) {
-	Gift()
-}
-func TestTimer(t *testing.T) {
-	SadTimer()
-}
-func TestUnit3(t *testing.T) {
-	CountDay("1991年12月25日")
-}
-func TestUnit4(t *testing.T) {
-	AnniversaryDay()
 }

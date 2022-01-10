@@ -1,7 +1,7 @@
 package calendar
 
 import (
-	"fmt"
+	"github.com/zhangyiming748/calendar/v2/util/log"
 	"strconv"
 	"strings"
 	"time"
@@ -35,53 +35,53 @@ func HappyTimer() {
 	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
 	nowTime = strings.Replace(nowTime, "PM", "下午", -1)
 	if inthour >= 6 && inthour <= 11 {
-		fmt.Println("早上好,摸鱼人!")
+		log.Debug.Println("早上好,摸鱼人!")
 	}
 	if inthour == 12 {
-		fmt.Println("中午好,摸鱼人!")
+		log.Debug.Println("中午好,摸鱼人!")
 	}
 	if inthour >= 13 && inthour <= 17 {
-		fmt.Println("下午好,摸鱼人!")
+		log.Debug.Println("下午好,摸鱼人!")
 	}
 	if inthour >= 18 && inthour <= 22 {
-		fmt.Println("晚上好,摸鱼人!")
+		log.Debug.Println("晚上好,摸鱼人!")
 	}
 	if inthour >= 23 && inthour <= 5 {
-		fmt.Println("晚上抓紧睡觉,休息好,第二天才有精神摸鱼!")
+		log.Debug.Println("晚上抓紧睡觉,休息好,第二天才有精神摸鱼!")
 	}
-	fmt.Println(nowDay, HappyWeekDayMap[week], nowTime)
-	fmt.Println("周一不摸鱼,脑子有问题")
-	fmt.Println("周二不摸鱼,上班没心情")
-	fmt.Println("周三不摸鱼,你是头傻驴")
-	fmt.Println("周四不摸鱼,谁请肯德基")
-	fmt.Println("周五不摸鱼,浪费好心情")
-	fmt.Println("周六不摸鱼,活着真多余")
+	log.Debug.Println(nowDay, HappyWeekDayMap[week], nowTime)
+	log.Debug.Println("周一不摸鱼,脑子有问题")
+	log.Debug.Println("周二不摸鱼,上班没心情")
+	log.Debug.Println("周三不摸鱼,你是头傻驴")
+	log.Debug.Println("周四不摸鱼,谁请肯德基")
+	log.Debug.Println("周五不摸鱼,浪费好心情")
+	log.Debug.Println("周六不摸鱼,活着真多余")
 
 	if inthour == 15 {
-		fmt.Println("喂!三点几咧!做......做撚啊做!")
-		fmt.Println("饮茶先啊!")
-		fmt.Println("三点几 饮......饮茶先啊!")
-		fmt.Println("做咁多都冇用嘅,老细唔锡你嘅咧!")
-		fmt.Println("喂!饮下茶先啊!三点几咧!")
-		fmt.Println("做碌鸠啊做!")
+		log.Debug.Println("喂!三点几咧!做......做撚啊做!")
+		log.Debug.Println("饮茶先啊!")
+		log.Debug.Println("三点几 饮......饮茶先啊!")
+		log.Debug.Println("做咁多都冇用嘅,老细唔锡你嘅咧!")
+		log.Debug.Println("喂!饮下茶先啊!三点几咧!")
+		log.Debug.Println("做碌鸠啊做!")
 	}
 	if inthour == 18 {
-		fmt.Println("喂!朋友!")
-		fmt.Println("做乜嘢咁多啦?差唔多七点咧!")
-		fmt.Println("放工啦!唔使做咁多啦!")
-		fmt.Println("做咁多,钱带去边度?")
-		fmt.Println("差唔多七点咧!放工!")
-		fmt.Println("落去茶室,饮下靓靓嘅杯......麦啤酒、黑啤酒,OK?")
-		fmt.Println("Happy下,唔使做咁多.")
-		fmt.Println("死咗都冇用咧,银纸冇得带去咧!")
-		fmt.Println("Happy下,饮酒,OK?")
+		log.Debug.Println("喂!朋友!")
+		log.Debug.Println("做乜嘢咁多啦?差唔多七点咧!")
+		log.Debug.Println("放工啦!唔使做咁多啦!")
+		log.Debug.Println("做咁多,钱带去边度?")
+		log.Debug.Println("差唔多七点咧!放工!")
+		log.Debug.Println("落去茶室,饮下靓靓嘅杯......麦啤酒、黑啤酒,OK?")
+		log.Debug.Println("Happy下,唔使做咁多.")
+		log.Debug.Println("死咗都冇用咧,银纸冇得带去咧!")
+		log.Debug.Println("Happy下,饮酒,OK?")
 	}
-	fmt.Println("【摸鱼办】提醒您")
-	fmt.Println("工作再累,一定不要忘记摸鱼哦!")
-	fmt.Println("有事没事起身去茶水间,去厕所,去廊道走走")
-	fmt.Println("吃饭时间就吃饭")
-	fmt.Println("午休时间就午休")
-	fmt.Println("别老在工位上坐着,钱是老板的,但命是自己的")
+	log.Debug.Println("【摸鱼办】提醒您")
+	log.Debug.Println("工作再累,一定不要忘记摸鱼哦!")
+	log.Debug.Println("有事没事起身去茶水间,去厕所,去廊道走走")
+	log.Debug.Println("吃饭时间就吃饭")
+	log.Debug.Println("午休时间就午休")
+	log.Debug.Println("别老在工位上坐着,钱是老板的,但命是自己的")
 }
 func SadTimer() {
 	nowDay := time.Now().Format("今天是2006年1月2日")
@@ -92,20 +92,20 @@ func SadTimer() {
 	nowTime = strings.Replace(nowTime, "AM", "上午", -1)
 	nowTime = strings.Replace(nowTime, "PM", "下午", -1)
 	if inthour >= 6 && inthour <= 11 {
-		fmt.Println("早上好,开始内卷的一天!")
+		log.Debug.Println("早上好,开始内卷的一天!")
 	}
 	if inthour == 12 {
-		fmt.Println("中午好,别人休息的时候正是你内卷的好时候!")
+		log.Debug.Println("中午好,别人休息的时候正是你内卷的好时候!")
 	}
 	if inthour >= 13 && inthour <= 17 {
-		fmt.Println("下午好,继续卷!")
+		log.Debug.Println("下午好,继续卷!")
 	}
 	if inthour >= 18 && inthour <= 22 {
-		fmt.Println("晚上好,坚持住!")
+		log.Debug.Println("晚上好,坚持住!")
 	}
 	if inthour >= 23 && inthour <= 5 {
-		fmt.Println("晚上抓紧卷,不睡觉你才能获得比别人更多的时间!")
+		log.Debug.Println("晚上抓紧卷,不睡觉你才能获得比别人更多的时间!")
 	}
-	fmt.Println(nowDay, nowTime, SadWeekDayMap[week])
-	fmt.Println("【内卷办】提醒您")
+	log.Debug.Println(nowDay, nowTime, SadWeekDayMap[week])
+	log.Debug.Println("【内卷办】提醒您")
 }

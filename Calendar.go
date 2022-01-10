@@ -3,7 +3,7 @@ package calendar
 import (
 	"fmt"
 	"github.com/nosixtools/solarlunar"
-	"log"
+	"github.com/zhangyiming748/calendar/v2/util/log"
 	"math/rand"
 	"sort"
 	"strconv"
@@ -135,10 +135,7 @@ var (
 
 )
 
-//设置日志输出格式
-func init() {
-	log.SetFlags(8 | 5)
-}
+
 
 //输入sad列表
 func init() {
@@ -374,14 +371,14 @@ func Calendar() {
 func HappyDay() {
 	HappyTimer()
 	defer func() {
-		fmt.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
-		fmt.Println("该休息就休息,该放松就放松")
+		log.Debug.Println("上班是帮老板赚钱,摸鱼是赚老板的钱!")
+		log.Debug.Println("该休息就休息,该放松就放松")
 		Gift()
-		fmt.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
+		log.Debug.Println("最后,祝愿天下所有摸鱼人,都能愉快的渡过每一天")
 	}()
 	for _, v := range Countdown {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			fmt.Printf("明天是%v\n", v.GetChineseName())
+			log.Debug.Printf("明天是%v\n", v.GetChineseName())
 			continue
 		}
 	}
@@ -391,10 +388,10 @@ func HappyDay() {
 		}
 
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			fmt.Printf("明天是%v\n", v.GetChineseName())
+			log.Debug.Printf("明天是%v\n", v.GetChineseName())
 			continue
 		}
-		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
+		log.Debug.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
 	AnniversaryDay()
 }
@@ -402,7 +399,7 @@ func SadDay() {
 	SadTimer()
 	for _, v := range Lyingflat {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			fmt.Printf("\t%v\n", v.GetChineseName())
+			log.Debug.Printf("\t%v\n", v.GetChineseName())
 		}
 	}
 	for _, v := range Lyingflat {
@@ -410,10 +407,10 @@ func SadDay() {
 			continue
 		}
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			//fmt.Printf("明天是%v\n", v.GetChineseName())
+			//log.Debug.Printf("明天是%v\n", v.GetChineseName())
 			continue
 		}
-		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
+		log.Debug.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
 }
 
@@ -428,8 +425,8 @@ func nextNewYear() {
 	if unsub < 0 {
 		return
 	}
-	fmt.Printf("距离明年还有%v天\n", int(unsub.Hours())/24)
+	log.Debug.Printf("距离明年还有%v天\n", int(unsub.Hours())/24)
 	if int(unsub.Hours())/24 <= 31 {
-		fmt.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
+		log.Debug.Println("过几天又会有人发\"新的一年,新的自己\"这种自欺欺人的话")
 	}
 }
