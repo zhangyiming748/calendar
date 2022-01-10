@@ -50,6 +50,13 @@ func HappyTimer() {
 		fmt.Println("晚上抓紧睡觉,休息好,第二天才有精神摸鱼!")
 	}
 	fmt.Println(nowDay, HappyWeekDayMap[week], nowTime)
+	fmt.Println("周一不摸鱼,脑子有问题")
+	fmt.Println("周二不摸鱼,上班没心情")
+	fmt.Println("周三不摸鱼,你是头傻驴")
+	fmt.Println("周四不摸鱼,谁请肯德基")
+	fmt.Println("周五不摸鱼,浪费好心情")
+	fmt.Println("周六不摸鱼,活着真多余")
+
 	if inthour == 15 {
 		fmt.Println("喂!三点几咧!做......做撚啊做!")
 		fmt.Println("饮茶先啊!")
