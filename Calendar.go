@@ -382,7 +382,7 @@ func HappyDay() {
 	}()
 	for _, v := range Countdown {
 		if v.GetSubDay() == 0 || v.GetSubDay() == 365 {
-			//fmt.Printf("明天是%v\n", v.GetChineseName())
+			fmt.Printf("明天是%v\n", v.GetChineseName())
 			continue
 		}
 	}
@@ -397,6 +397,7 @@ func HappyDay() {
 		}
 		fmt.Printf("距离%v还有%v天\n", v.GetChineseName(), v.GetSubDay())
 	}
+	AnniversaryDay()
 }
 func SadDay() {
 	SadTimer()
